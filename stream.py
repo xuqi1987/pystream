@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import Response
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 app = Flask(__name__)
 
 @app.route('/')
@@ -15,6 +15,7 @@ def index():
 def gen():
     while True:
         ret, frame = cap.read()
+        print ret
         frame = cv2.imencode('.jpg', frame)[1].tostring()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
@@ -24,5 +25,5 @@ def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    ip = raw_input('Ip a utilizar: ')
-    app.run(host=ip, processes=3)
+    #ip = raw_input('Ip a utilizar: ')
+    app.run(host='0.0.0.0', processes=3,debug=True)
