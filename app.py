@@ -44,12 +44,10 @@ def gen():
     while True:
         ret, frame = cap.read()
         encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),70]
-        if cv2.imencode('.jpg', frame,encode_param).size() > 0:
-            frame = cv2.imencode('.jpg', frame,encode_param)[1].tostring()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
+        print len(cv2.imencode('.jpg', frame,encode_param))
+        frame = cv2.imencode('.jpg', frame,encode_param)[1].tostring()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 def take_picture():
     ret, frame = cap.read()
@@ -71,4 +69,4 @@ def take_picture():
         return url_for('static',filename='pic/error.png')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0',debug=True)
