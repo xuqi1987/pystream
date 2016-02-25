@@ -37,14 +37,17 @@ def video_feed():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 def gen():
-    if cap.isOpened():
-        while True:
-            ret, frame = cap.read()
-            frame = cv2.imencode('.jpg', frame)[1].tostring()
+
+    if cap.isOpened() == False:
+        flash("摄像头没有打开")
+
+    while True:
+        ret, frame = cap.read()
+        encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),70]
+        if cv2.imencode('.jpg', frame,encode_param).size() > 0:
+            frame = cv2.imencode('.jpg', frame,encode_param)[1].tostring()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-    else:
-        flash("摄像头没有打开")
 
 
 
