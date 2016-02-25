@@ -42,20 +42,21 @@ def gen():
 
 
 def take_picture():
-    while True:
-        ret, frame = cap.read()
-        if ret:
-            break
-    frame = cv2.imencode('.jpg', frame)[1].tostring()
-    #获得当前时间
-    now = datetime.datetime.now()
-    #转换为指定的格式:
-    otherStyleTime = now.strftime("%Y%m%d_%H%M%S")
-    pic_path = url_for('static',filename='pic/%s.jpg' % otherStyleTime)
-    file_object = open(pic_path[1:], 'w')
-    file_object.write(frame)
-    file_object.close()
-    return pic_path
+    ret, frame = cap.read()
+
+    if ret:
+        frame = cv2.imencode('.jpg', frame)[1].tostring()
+        #获得当前时间
+        now = datetime.datetime.now()
+        #转换为指定的格式:
+        otherStyleTime = now.strftime("%Y%m%d_%H%M%S")
+        pic_path = url_for('static',filename='pic/%s.jpg' % otherStyleTime)
+        file_object = open(pic_path[1:], 'w')
+        file_object.write(frame)
+        file_object.close()
+        return pic_path
+    else:
+        return url_for('static',filename='pic/error.png')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)

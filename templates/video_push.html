@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-   <title>PyStreamer 0.1</title>
-   <style type="text/css">
-      #global-container, body, html { width: 100%; height: 100%; padding: 0; margin: 0; }
-      #global-container { display: table; }
-      #global { display: table-cell; vertical-align: middle; }
-      img { width: 95%; max-width: 720px; }
-   </style>
-</head>
-<body>
-   <div id="global-container">
-      <div id="global" align="center">
-         <h1>PyStreamer 0.1</h1>
-         <img src="{{ url_for('video_feed') }}">
-      </div>
-   </div>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}树莓派{% endblock %}
+
+<!--列表!-->
+{% block navbar %}
+<li><a href="{{url_for('index')}}" >首页</a></li>
+<li class="active"><a href="{{url_for('current_video')}}">在线视频</a></li>
+<li><a href="{{url_for('current_picture')}}">拍照</a></li>
+<li><a href="#">照片库</a></li>
+<li><a href="#">关于</a></li>
+{% endblock %}
+
+<!-- 正文 !-->
+{% block context %}
+<img src="{{ url_for('video_feed') }}">
+{% endblock %}
