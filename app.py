@@ -9,7 +9,7 @@ from flask import url_for
 import datetime
 
 app = Flask(__name__)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 @app.route('/')
 def index():
@@ -59,4 +59,4 @@ def take_picture():
         return url_for('static',filename='pic/error.png')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0',processes=1)
