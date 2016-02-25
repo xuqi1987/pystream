@@ -33,13 +33,15 @@ def gen():
     while True:
         ret, frame = cap.read()
         if ret:
-            #print ret
             frame = cv2.imencode('.jpg', frame)[1].tostring()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-        else:
-            print "Error!!"
 
+        else:
+            frame = cv2.imread(url_for('static',filename='pic/error.png'),0)
+
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 def take_picture():
     ret, frame = cap.read()
