@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import Response
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 app = Flask(__name__)
 
 @app.route('/')
