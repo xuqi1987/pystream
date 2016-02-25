@@ -32,14 +32,20 @@ def video_feed():
 def gen():
     while True:
         ret, frame = cap.read()
-        #print ret
-        frame = cv2.imencode('.jpg', frame)[1].tostring()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        if ret:
+            #print ret
+            frame = cv2.imencode('.jpg', frame)[1].tostring()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        else:
+            print "Error!!"
 
 
 def take_picture():
-    ret, frame = cap.read()
+    while True:
+        ret, frame = cap.read()
+        if ret:
+            break
     frame = cv2.imencode('.jpg', frame)[1].tostring()
     #获得当前时间
     now = datetime.datetime.now()
