@@ -26,6 +26,21 @@ def current_picture():
 def current_video():
     return render_template('video_push.html')
 
+@app.route('/scale_video/<int:num>')
+def scale_video(num):
+    cam.scale_video(num)
+    return redirect(url_for('current_video'))
+
+@app.route('/quality_video/<int:num>')
+def quality_video(num):
+    cam.quality_video(num)
+    return redirect(url_for('current_video'))
+
+@app.route('/reset_video/')
+def reset_video():
+    cam.reset_video()
+    return redirect(url_for('current_video'))
+
 @app.route('/pic_list/')
 def pic_list():
     piclist = cam.get_all_picture()
