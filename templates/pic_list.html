@@ -1,16 +1,17 @@
 {% extends "layout.html" %}
 {% block title %}树莓派{% endblock %}
 
-<!--列表!-->
-{% block navbar %}
-<li><a href="{{url_for('index')}}" >首页</a></li>
-<li><a href="{{url_for('current_video')}}">在线视频</a></li>
-<li><a href="{{url_for('current_picture')}}">拍照</a></li>
-<li class="active"><a href="{{url_for('pic_list')}}">照片库</a></li>
-<li><a href="#">关于</a></li>
-{% endblock %}
-
 <!-- 正文 !-->
 {% block context %}
-<h1>这是一树莓派的测试程序</h1>
+
+<div class="row">
+    {% for i in piclist %}
+        <div class="col-md-4"><img src="{{'/static/pic/' + i}}" class="img-thumbnail center-block">
+            <a class="btn btn-danger" href="{{ url_for('del_pic',name=i) }}">删除</a>
+        </div>
+    {% endfor %}
+
+</div>
+
 {% endblock %}
+

@@ -1,18 +1,14 @@
-{% extends "layout.html" %}
+{% extends "camera_layout.html" %}
 {% block title %}树莓派{% endblock %}
 
-<!--列表!-->
-{% block navbar %}
-<li><a href="{{url_for('index')}}" >首页</a></li>
-<li><a href="{{url_for('current_video')}}">在线视频</a></li>
-<li class="active"><a href="{{url_for('current_picture')}}">拍照</a></li>
-<li><a href="{{url_for('pic_list')}}">照片库</a></li>
-<li><a href="#">关于</a></li>
-{% endblock %}
-
 <!-- 正文 !-->
-{% block context %}
-<img src="{{ path }}">
+{% block contexttop %}
+
+
+<div class="container">
+
+<img src="{{ path }}" class="img-thumbnail center-block">
+</div>
+
 {% endblock %}
 
-<img src="{{ path }}">
