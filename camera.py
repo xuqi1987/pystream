@@ -14,12 +14,12 @@ class Camera():
     def __init__(self,num):
         self.cap = cv2.VideoCapture(num)
         self.pic_list = None
-        self.change_size = False
-        self.width = 100
-        self.height=100
-        self.default_w = 0
-        self.default_h = 0
-        self.quality = 100
+        self.change_size = True
+        self.width = 200
+        self.height= 200
+        self.default_w = 400
+        self.default_h = 400
+        self.quality = 50
         pass
 
     def take_picture(self,path):
@@ -56,8 +56,9 @@ class Camera():
             if self.change_size == False:
                     self.width = frame.shape[0]
                     self.height = frame.shape[1]
-                    self.default_w = frame.shape[0]
-                    self.default_h = frame.shape[1]
+
+            self.default_w = frame.shape[0]
+            self.default_h = frame.shape[1]
 
             out_img = self.resizeImg(in_img,self.width,self.height)
 
