@@ -22,6 +22,7 @@ class Camera():
         self.quality = 50
         pass
 
+    # 拍照
     def take_picture(self,path):
         ret, frame = self.cap.read()
 
@@ -34,10 +35,12 @@ class Camera():
             otherStyleTime = now.strftime("%Y%m%d_%H%M%S")
             path = path +'/'+otherStyleTime +'.jpg'
             print 'take picture!'
-
+            # 路径不能已/开头
             file_object = open(path[1:], 'w')
             file_object.write(frame)
             file_object.close()
+            # 保存文件后的路径
+
 
             return path
         else:
@@ -45,12 +48,12 @@ class Camera():
 
     def gen(self):
 
-
         while True:
             ret, frame = self.cap.read()
 
             in_img = image.fromarray(frame)
 
+            # 由于网速不行,需要对图片进行压缩
             encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),self.quality]
 
             if self.change_size == False:
@@ -77,6 +80,7 @@ class Camera():
 
             return pic_path_ab
 
+    # 删除图片
     def del_pic(self,name):
         for item in self.pic_list:
             # 查找还有name的路径
@@ -100,6 +104,7 @@ class Camera():
         self.quality = 100
         self.change_size = False
         pass
+
     #等比例压缩图片
     def resizeImg(self,ori_img, dst_w,dst_h):
 
